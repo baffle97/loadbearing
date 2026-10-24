@@ -122,7 +122,12 @@ export function Scene({
       />
       <Struts analysis={analysis} layout={layout} pulled={pulled} />
       {label && (
-        <Html position={[label.x, label.y + 1.1, label.z]} center style={{ pointerEvents: 'none' }}>
+        <Html
+          position={[label.x, label.y + 1.1, label.z]}
+          center
+          zIndexRange={[4, 0]}
+          style={{ pointerEvents: 'none' }}
+        >
           <div className="sticker">pulled: {name}</div>
         </Html>
       )}

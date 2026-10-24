@@ -177,6 +177,7 @@ h1 {
   box-shadow: 6px 6px 0 var(--ink);
   padding: 12px 16px 14px;
   transform: rotate(-1.2deg);
+  z-index: 5;
 }
 
 .hud .big {
@@ -345,24 +346,41 @@ h1 {
   .chips button {
     white-space: nowrap;
   }
+  /* One short strip: number and button on the first row, one line of context under it. */
   .hud {
     left: 12px;
     top: 8px;
-    width: min(250px, calc(100% - 24px));
-    padding: 8px 12px 10px;
+    width: calc(100% - 24px);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 10px;
+    padding: 6px 10px 8px;
     box-shadow: 4px 4px 0 var(--ink);
     transform: none;
   }
   .hud .big {
-    font-size: 22px;
+    font-size: 19px;
   }
-  .hud p,
+  .hud p {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
   .hud small {
-    font-size: 14px;
+    display: none;
   }
   .hud button {
-    margin-top: 6px;
-    padding: 5px 10px;
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+  /* The card already names the pulled block; the floating label would sit on top of it. */
+  .sticker {
+    display: none;
   }
   .list {
     top: auto;
