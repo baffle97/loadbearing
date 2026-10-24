@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test'
 export default defineConfig({
   testDir: 'e2e',
   timeout: 45_000,
+  expect: { timeout: 10_000 },
   fullyParallel: true,
   workers: 2, // software WebGL is heavy; more browsers at once starve each other
   forbidOnly: !!process.env.CI,

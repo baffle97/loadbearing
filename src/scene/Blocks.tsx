@@ -16,7 +16,7 @@ import type { Analysis } from '../domain/graph'
 import { BLOCK } from '../domain/layout'
 import type { Layout } from '../domain/layout'
 import { setHover } from '../lib/hoverBus'
-import { TowerPhysics } from './physics'
+import type { TowerPhysics } from './physics'
 
 const PALETTE = ['#C6F432', '#FF5FA2', '#FFD60A', '#3DD6F5', '#FF8A3D'].map((c) => new Color(c))
 const ROOT = new Color('#FFFFFF')
@@ -116,15 +116,18 @@ export function Blocks({ analysis, layout, pulled, reducedMotion, onPull }: Prop
   useEffect(() => {
     let dead = false
     let created: TowerPhysics | undefined
-    void TowerPhysics.create(layout).then((world) => {
-      if (dead) {
-        world.dispose()
-        return
-      }
-      created = world
-      physics.current = world
-      if (queuedPull.current !== null) start(queuedPull.current)
-    })
+    // Rapier ships its WASM inline (~2 MB), so it loads as its own chunk while the tower is already on screen.
+    void import('./physics')
+      .then((m) => m.TowerPhysics.create(layout))
+      .then((world) => {
+        if (dead) {
+          world.dispose()
+          return
+        }
+        created = world
+        physics.current = world
+        if (queuedPull.current !== null) start(queuedPull.current)
+      })
     return () => {
       dead = true
       physics.current = null
