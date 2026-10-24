@@ -290,7 +290,7 @@ export default function App() {
           ) : (
             <>
               <strong className="big">{total} packages</strong>
-              <p>
+              <p className="hint">
                 make up <code>{source.loaded.name}</code>. Click a block to pull it. Small blocks
                 near the bottom hold the most up.
               </p>

@@ -382,37 +382,81 @@ h1 {
   .sticker {
     display: none;
   }
+  /* Phones get the essentials only: the button says what to do, the input names the package. */
+  .hud .hint {
+    display: none;
+  }
+  .chips {
+    gap: 8px;
+  }
+  .chips button {
+    font-size: 13px;
+    padding: 2px 8px;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  /* The list loses its panel and becomes one scrolling row of small chips over the floor. */
   .list {
     top: auto;
-    bottom: 10px;
-    left: 12px;
-    right: 12px;
+    bottom: 8px;
+    left: 0;
+    right: 0;
     width: auto;
     max-height: none;
     overflow: visible;
-    padding: 8px 10px;
-    box-shadow: 4px 4px 0 var(--ink);
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
   }
   .list h2 {
-    font-size: 13px;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
   .list ul {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     overflow-x: auto;
-    padding: 4px 4px 8px 0;
+    padding: 0 12px 4px;
+    scrollbar-width: none;
   }
   .list li {
     flex: 0 0 auto;
-    min-width: 170px;
+    gap: 8px;
+    background: var(--white);
     border: 2.5px solid var(--ink);
-    padding: 5px 8px;
+    box-shadow: 2px 2px 0 var(--ink);
+    padding: 3px 4px 3px 8px;
+  }
+  .list li span {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  .list li small {
+    font-size: 11px;
+  }
+  .list button {
+    font-size: 13px;
+    padding: 1px 8px;
+    box-shadow: none;
+    border-width: 2px;
   }
   .bottom {
-    padding: 8px 14px 12px;
+    padding: 6px 14px 10px;
+    gap: 6px 12px;
+  }
+  .rec {
+    flex: 0 0 auto;
+    font-size: 14px;
+    padding: 6px 12px;
+    box-shadow: 3px 3px 0 var(--ink);
   }
   .bottom p {
-    font-size: 12px;
+    flex: 1 1 0;
+    font-size: 11px;
+    line-height: 1.3;
   }
 }
 
