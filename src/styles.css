@@ -1,0 +1,408 @@
+:root {
+  --paper: #d9d2ff;
+  --ink: #111111;
+  --lime: #c6f432;
+  --pink: #ff5fa2;
+  --yellow: #ffd60a;
+  --cyan: #3dd6f5;
+  --white: #ffffff;
+  --shadow: 4px 4px 0 var(--ink);
+  --display: 'Unbounded', system-ui, sans-serif;
+  --body: 'Onest Variable', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.top > *,
+.bottom > * {
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  padding: 16px 24px 8px;
+  position: relative;
+  z-index: 3;
+}
+
+h1 {
+  font: 800 28px/1 var(--display);
+  letter-spacing: -0.5px;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  flex: 1 1 340px;
+  max-width: 560px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  font-weight: 600;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.go,
+.rec,
+.hud button,
+.list button {
+  border: 3px solid var(--ink);
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  transition:
+    transform 80ms,
+    box-shadow 80ms;
+}
+
+.go {
+  background: var(--lime);
+  padding: 10px 18px;
+}
+
+.go:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.go:active,
+.rec:active,
+.hud button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.chips {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chips button {
+  background: var(--white);
+  border: 2.5px solid var(--ink);
+  padding: 4px 10px;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.chips button[aria-pressed='true'] {
+  background: var(--yellow);
+}
+
+.stage {
+  position: relative;
+  min-height: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 800 20px var(--display);
+}
+
+.hud {
+  display: block;
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  width: min(320px, calc(100% - 48px));
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 12px 16px 14px;
+  transform: rotate(-1.2deg);
+}
+
+.hud .big {
+  display: block;
+  font: 800 30px/1.1 var(--display);
+}
+
+.hud p {
+  margin-top: 6px;
+  font-weight: 700;
+}
+
+.hud small {
+  display: block;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.hud code {
+  font-family: var(--body);
+  font-weight: 800;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 0 4px;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.hud button {
+  margin-top: 10px;
+  background: var(--pink);
+  padding: 7px 12px;
+}
+
+.list {
+  position: absolute;
+  right: 24px;
+  top: 12px;
+  width: 250px;
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 12px 14px;
+}
+
+.list h2 {
+  font: 800 16px var(--display);
+}
+
+.list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+.list li span {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.list li small {
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.list button {
+  background: var(--pink);
+  padding: 3px 10px;
+  box-shadow: 2px 2px 0 var(--ink);
+  border-width: 2.5px;
+}
+
+.list button:disabled {
+  background: #ddd;
+  cursor: default;
+}
+
+.sticker {
+  background: var(--white);
+  border: 2.5px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 2px 8px;
+  font: 800 13px var(--display);
+  white-space: nowrap;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  background: var(--white);
+  border: 2.5px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 6px 10px;
+  display: grid;
+  max-width: 280px;
+  font-size: 14px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 8px 24px 16px;
+  position: relative;
+  z-index: 3;
+}
+
+.rec {
+  background: var(--pink);
+  padding: 9px 16px;
+}
+
+.rec:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.bottom p {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1 1 320px;
+}
+
+.bottom .clip-error {
+  flex-basis: 100%;
+  font-weight: 800;
+}
+
+@media (max-width: 820px) {
+  .top {
+    padding: 10px 14px 4px;
+    gap: 8px 12px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .search {
+    flex: 1 1 100%;
+    order: 3;
+  }
+  .chips {
+    order: 4;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 0 8px 0;
+    scrollbar-width: none;
+  }
+  .chips button {
+    white-space: nowrap;
+  }
+  .hud {
+    left: 12px;
+    top: 8px;
+    width: min(250px, calc(100% - 24px));
+    padding: 8px 12px 10px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: none;
+  }
+  .hud .big {
+    font-size: 22px;
+  }
+  .hud p,
+  .hud small {
+    font-size: 14px;
+  }
+  .hud button {
+    margin-top: 6px;
+    padding: 5px 10px;
+  }
+  .list {
+    top: auto;
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 8px 10px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .list h2 {
+    font-size: 13px;
+  }
+  .list ul {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 4px 8px 0;
+  }
+  .list li {
+    flex: 0 0 auto;
+    min-width: 170px;
+    border: 2.5px solid var(--ink);
+    padding: 5px 8px;
+  }
+  .bottom {
+    padding: 8px 14px 12px;
+  }
+  .bottom p {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+  .hud {
+    transform: none;
+  }
+}
