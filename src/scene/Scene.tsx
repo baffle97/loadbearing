@@ -58,7 +58,7 @@ function Framing({ layout }: { layout: Layout }) {
     const half = Math.tan(((38 / 2) * Math.PI) / 180)
     const aspect = viewport.width / Math.max(1, viewport.height)
     const fitWidth = (Math.max(layout.width, layout.depth) * 1.6) / (2 * half * aspect)
-    const distance = Math.max(14, size * 1.4, fitWidth)
+    const distance = Math.max(14, size * 1.75, fitWidth)
     camera.position.set(distance * 0.5, layout.height * 0.55 + distance * 0.22, distance * 0.95)
     if (controls) {
       controls.target.set(0, layout.height * 0.38, 0)
